@@ -22,7 +22,7 @@ interface SubItemAPI {
 		int _index;
 	}
 
-	@property uint length(string _item);
+	@property int length(string _item);
 
 	@method(HTTPMethod.GET)
 	string name(string _item, int _index);
@@ -64,7 +64,7 @@ class LocalSubItemAPI : SubItemAPI {
 		m_manager = manager;
 	}
 	
-	@property uint length(string _item) { return m_manager.items[_item].length; }
+	@property int length(string _item) { return cast(int)m_manager.items[_item].length; }
 
 	string name(string _item, int _index) { return m_manager.items[_item][_index]; }
 }

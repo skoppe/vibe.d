@@ -728,7 +728,7 @@ package nothrow extern(C)
 				if (ctx.readOwner.fiber.state == Fiber.State.EXEC) ctx.exception = ex;
 				else ctx.core.resumeTask(ctx.readOwner, ex);
 			}
-			if (ctx.writeOwner && ctx.writeOwner != ctx.readOwner && ctx.writeOwner.running) {
+			if (ctx.writeOwner && (ctx.writeOwner != ctx.readOwner || ctx.state == ConnectionState.activeClose) && ctx.writeOwner.running) {
 				logTrace("resuming corresponding task%s...", ex is null ? "" : " with exception");
 				if (ctx.writeOwner.fiber.state == Fiber.State.EXEC) ctx.exception = ex;
 				else ctx.core.resumeTask(ctx.writeOwner, ex);
